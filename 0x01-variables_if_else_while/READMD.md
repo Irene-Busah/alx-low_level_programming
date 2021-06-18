@@ -1,1 +1,0 @@
-This directory will container C file on variables. We will make use of the if, else, while, and for loops. 
