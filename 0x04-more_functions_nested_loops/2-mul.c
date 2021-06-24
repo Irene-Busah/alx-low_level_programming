@@ -1,4 +1,4 @@
-**
+/**
  *mul - multiple parameters
  *@a: parameter enteger
  *@b: parameter enteger
