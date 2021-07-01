@@ -11,5 +11,12 @@ char *cap_string(char *);
 char *leet(char *);
 char *rot13(char *);
 void print_number(int n);
+/* 102-infinite_add.c */
+char *infinite_add(char *n1, char *n2, char *r, int size_r);
+
+/* 103-print_buffer.c */
+void print_buffer(char *b, int size);
+
+int _strlen(char *); 
 
 #endif /* HOLBERTON_H */
