@@ -1,42 +1,48 @@
 #include "holberton.h"
 #include <stdio.h>
 #include <stdlib.h>
+
 /**
- * string_nconcat - function that concatenates two strings.
- * @s1: input
- * @s2: input
- * @n: input
- * Return: output
+ *string_nconcat - concatenates two strings.
+ *@s1: first pointer character
+ *@s2: second pointer character
+ *@n: size character s2 parameter
+ *Return: concat pointer
  */
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	unsigned int i, j, k, l;
-	char *ar;
+	char *ptr;
+	unsigned int len = 0, j = 0, i;
 
 	if (s1 == NULL)
 		s1 = "";
 	if (s2 == NULL)
 		s2 = "";
-	i = 0;
-	while (s1[i] != '\0')
-		i++;
-	j = 0;
-	while (s2[j] != '\0' && j < n)
-		j++;
-	if (n <= j)
-		n = j;
 
-	ar = malloc(sizeof(char) * (i + n + 1));
+	while (s2[len])
+		len++;
 
-	if (ar == NULL)
+	if (n >= len)
+		n = len;
+
+	len = 0;
+	while (s1[len])
+		len++;
+
+	ptr = malloc(sizeof(char) * (len + n + 1));
+	if (ptr == NULL)
 		return (NULL);
 
-	for (k = 0; k < i; k++)
-		ar[k] = s1[k];
+	for (i = 0; i < len; i++)
+		ptr[i] = s1[i];
 
-	for (l = 0; s2[l] != '\0' && l != n; l++, i++)
-		ar[i] = s2[l];
+	for (i = len; i < (len + n); i++)
+	{
+		ptr[i] = s2[j];
+		j++;
+	}
 
-	ar[i] = '\0';
-	return (ar);
+	ptr[i] = '\0';
+	return (ptr);
 }
+
