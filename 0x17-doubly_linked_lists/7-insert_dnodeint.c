@@ -1,53 +1,47 @@
 #include "lists.h"
 
 /**
- * insert_dnodeint_at_index - inserts a new node at given index in the list
- * @head: pointer to head of the list
- * @idx: index to add at, starting from 0
- * @n: value of new node
- * Return: new node or null
- **/
-dlistint_t *insert_dnodeint_at_index(dlistint_t **head, unsigned int idx, int n)
+ * insert_dnodeint_at_index - function to insert node at idx
+ * @h: start of list
+ * @idx: position
+ * @n: integer
+ * Return: Inserted node
+ */
+dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 {
-	unsigned int count;
-	dlistint_t *tmp, *new, *tmp_prev;
+	dlistint_t *nth_node, *temp;
 
-	if (head == NULL && idx > 0)
-	return (NULL);
-	new = malloc(sizeof(dlistint_t));
-	if (new == NULL)
+	if (*h == NULL)
 		return (NULL);
-	new->n = n, new->prev = new->next = NULL;
 
+	nth_node = malloc(sizeof(dlistint_t));
+	if (nth_node == NULL)
+		return (NULL);
+	nth_node->n = n;
+	temp = (*h);
 	if (idx == 0)
 	{
-		if (*head)
-	{
-		new->next = *head;
-		(*head)->prev = new, *head = new;
+		nth_node->next = *h;
+		if (*h)
+			(*h)->prev = nth_node;
+		*h = nth_node;
+		return (*h);
 	}
-		else
-			*head = new;
-		return (new);
-	}
-	count = 1, tmp = (*head)->next;
-	while (tmp)
+	for (; idx > 1; idx--)
 	{
-		if (idx == count)
+		if (temp == NULL)
 		{
-			tmp->prev->next = new, new->prev = tmp->prev;
-			new->next = tmp, tmp->prev = new;
-			return (new);
+			free(nth_node);
+			return (NULL);
 		}
-		count++;
-		tmp_prev = tmp;
-		tmp = tmp->next;
+		temp = temp->next;
 	}
-	if (tmp == NULL && count == idx)
-	{
-		tmp_prev->next = new, new->prev = tmp_prev;
-		return (new);
-	}
-	free(new);
-	return (NULL);
+	if (temp == NULL)
+		return (NULL);
+	nth_node->next = temp->next;
+	nth_node->prev = temp;
+	if (temp->next)
+		nth_node->next->prev = nth_node;
+	nth_node->prev->next = nth_node;
+	return (nth_node);
 }
