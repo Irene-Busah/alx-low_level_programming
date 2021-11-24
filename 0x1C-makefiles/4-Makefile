@@ -1,21 +1,24 @@
-CC = gcc
-SRC = main.c holberton.c
-OBJ = ${SRC:.c=.o}
-NAME = holberton
-RM = rm -f
-CFLAGS = -Wall -Werror -Wextra -pedantic
+# A complete Makefile
 
-all: ${OBJ}
-	${CC} ${OBJ} -o ${NAME}
+CC = gcc
+OBJ = $(SRC:.c=.o)
+NAME = holberton
+SRC = main.c holberton.c
+CFLAGS = -Wall -Werror -Wextra -pedantic
+RM = rm -f
+
+all: $(OBJ)
+	$(CC) $? -o $(NAME)
 
 clean:
-	${RM} *~ ${NAME}
-
-oclean:
-	${RM} ${OBJ}
+	$(RM) *~ $(NAME)
 
 fclean: clean oclean
 
-re: oclean all
+oclean:
+	$(RM) $(OBJ)
 
-.PHONY: clean oclean fclean re
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+re: oclean all
